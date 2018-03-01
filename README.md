@@ -1,4 +1,6 @@
 # swagger2-Postman
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/postmanlabs/swagger2-postman2.svg)](https://greenkeeper.io/)
 Converter for swagger 2.0 JSON to Postman Collection v2
 Exports the following functions:
 
