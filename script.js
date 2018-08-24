@@ -83,4 +83,4 @@ let pathToSwaggerFile = './data/swagger.json';
 let newPostmanCollection = convertCollection(pathToSwaggerFile);
 
 // update postman collection
-// updatePostmanCollection(newPostmanCollection, collection_uid)
+updatePostmanCollection(newPostmanCollection, collection_uid)
