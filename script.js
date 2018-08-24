@@ -31,6 +31,27 @@ function getPostmanCollection(collection_uid) {
     });
 }
 
+function getSwaggerFile() {
+
+    let username = "loopDelicious";
+    let repositoryName = "maps";
+    let filepathAndName = "something";
+
+    let getGitHubOptions = {
+        method: 'GET',
+        url: `https://api.getpostman.com/collections/${collection_uid}`,
+        headers: {
+            'Cache-Control': 'no-cache',
+            'X-Api-Key': secrets.postmanAPIKey,
+            'Content-Type': 'application/json'
+        }
+    };
+
+    let swaggerFile = fetch(`https://api.github.com/repos/${username}/${repositoryName}/contents/${filepathAndName}`)
+    
+
+}
+
 function updatePostmanCollection(newFile, collection_uid) {
 
     // compile PUT request to update a Postman collection
@@ -76,11 +97,13 @@ let pathToSwaggerFile = './data/swagger.json';
 
 // retrieves postman collection based on uid
 // returns postman collection
-// let originalPostmanCollection = getPostmanCollection(collection_uid); 
+let originalPostmanCollection = getPostmanCollection(collection_uid); 
 
 // swagger json converts to postman collection
 // returns converted postman collection
 let newPostmanCollection = convertCollection(pathToSwaggerFile);
 
-// update postman collection
-updatePostmanCollection(newPostmanCollection, collection_uid)
+if (newPostmanCollection != originalPostmanCollection) {
+    // update postman collection
+    updatePostmanCollection(newPostmanCollection, collection_uid)
+}
