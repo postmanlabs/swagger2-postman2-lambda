@@ -62,7 +62,7 @@ function convertCollection(swaggerPath) {
 
     let swaggerFile = require(swaggerPath);
     let converted = Converter(swaggerFile);
-    // console.log('after convert', converted);
+    console.log('after convert', converted);
     return JSON.stringify(converted);
 }
 
@@ -71,15 +71,16 @@ function convertCollection(swaggerPath) {
 // call functions to handle conversion and update collection
 
 let collection_uid = "1559979-2de5594b-7153-4270-b280-451705f346f3";
-let pathToSwaggerFile = './data/swagger.json';
+// let pathToSwaggerFile = './data/swagger.json';
+let pathToSwaggerFile = './data/petstore-expanded.json';
 
 // retrieves postman collection based on uid
 // returns postman collection
-let originalPostmanCollection = getPostmanCollection(collection_uid); 
+// let originalPostmanCollection = getPostmanCollection(collection_uid); 
 
 // swagger json converts to postman collection
 // returns converted postman collection
 let newPostmanCollection = convertCollection(pathToSwaggerFile);
 
 // update postman collection
-updatePostmanCollection(newPostmanCollection, collection_uid)
+// updatePostmanCollection(newPostmanCollection, collection_uid)
