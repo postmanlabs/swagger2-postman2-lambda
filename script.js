@@ -1,7 +1,7 @@
-var secrets = require('./secrets'),
+var Converter = require('./lib/convert'),
     // Converter = require('swagger2-postman2-converter'),
-    Converter = require('./lib/convert'),
-    request = require('request');
+    request = require('request')
+    secrets = require('./secrets');
 
 
 // ###############################################
