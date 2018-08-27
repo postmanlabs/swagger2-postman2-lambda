@@ -1,4 +1,12 @@
+### Get started
+Make sure you have [Node.js](https://nodejs.org/en/download/) and a package manager like [npm](https://www.npmjs.com/) installed on your machine.
 
+The file called `script.js` contains functions to handle the conversion from Swagger to Postman, and to update an existing Postman collection. Define your required variables starting on line 90 of `script.js`.
+
+Then from your project's root folder, run the following terminal command to execute the script:
+    $ node script.js
+
+You can add additional logic to execute either before or after the conversion in `script.js`. Additionally, you can cusotmize the conversion by updating `./lib/convert.js` or `./lib/helpers.js`.
 
 # Forked from [swagger2-Postman2](https://github.com/postmanlabs/swagger2-postman2)
 Converter for swagger 2.0 JSON to Postman Collection v2
