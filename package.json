@@ -6,7 +6,8 @@
   "scripts": {
     "test": "scripts/test.sh",
     "test-lint": "scripts/test-lint.sh",
-    "test-unit": "scripts/test-unit.sh"
+    "test-unit": "scripts/test-unit.sh",
+    "zip": "zip function.zip package.json convert.js helper.js scriptForLambda.js node_modules"
   },
   "dependencies": {
     "js-yaml": "3.10.0",
