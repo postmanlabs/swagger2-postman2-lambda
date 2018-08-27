@@ -1,55 +1,43 @@
-var fs = require('fs'),
+var secrets = require('./secrets'),
     // Converter = require('swagger2-postman2-converter'),
     Converter = require('./lib/convert'),
-    secrets = require('./secrets'),
     request = require('request');
 
 
 // ###############################################
-// define functions to handle conversion and update collection
+// define helper functions to handle conversion and update collection
 
-// retrieves postman collection based on uid, returns postman collection
-function getPostmanCollection(collection_uid) {
-
-    // compile GET request to retrieve a single Postman collection
-    let getSingleOptions = {
-        method: 'GET',
-        url: `https://api.getpostman.com/collections/${collection_uid}`,
-        headers: {
-            'Postman-Token': '4122abb3-6098-6906-e172-49334961f595',
-            'Cache-Control': 'no-cache',
-            'X-Api-Key': secrets.postmanAPIKey,
-            'Content-Type': 'application/json'
-        }
-    };
-
-    // submit GET request to retrieve a single Postman collection
-    request(getSingleOptions, function (error, response, body) {
-        if (error) throw new Error(error);
-        console.log('get single collection', body);
-        return body;
-    });
-}
-
-function getSwaggerFile() {
-
-    let username = "loopDelicious";
-    let repositoryName = "maps";
-    let filepathAndName = "something";
+function getSwaggerFile(owner, repo, filepathAndName) {
 
     let getGitHubOptions = {
         method: 'GET',
-        url: `https://api.getpostman.com/collections/${collection_uid}`,
+        url: `https://api.github.com/repos/${owner}/${repo}/contents/${filepathAndName}`,
         headers: {
-            'Cache-Control': 'no-cache',
-            'X-Api-Key': secrets.postmanAPIKey,
-            'Content-Type': 'application/json'
+            'Accept': 'application/vnd.github.3.raw',
+            'User-Agent': owner
         }
     };
 
-    let swaggerFile = fetch(`https://api.github.com/repos/${username}/${repositoryName}/contents/${filepathAndName}`)
-    
+    // submit GET request to retrieve Swagger file
+    return new Promise(function(resolve, reject) {
+        request(getGitHubOptions, function (error, response, body) {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(JSON.parse(body));
+            }
+        });
+    })
+}
 
+function convertCollection(swaggerFile) {
+
+    // use converter imported from local directory
+    return new Promise(function(resolve, reject) {
+        let converted = Converter(swaggerFile);
+        console.log('after convert', converted);
+        resolve(JSON.stringify(converted));
+    })
 }
 
 function updatePostmanCollection(newFile, collection_uid) {
@@ -72,38 +60,38 @@ function updatePostmanCollection(newFile, collection_uid) {
     };
 
     // submit PUT request to update a Postman collection
-    request(putOptions, function (error, response, body) {
-        if (error) throw new Error(error);
-        // console.log('updated collection', body);
-    });
-
-}
-
-function convertCollection(swaggerPath) {
-
-    let swaggerFile = require(swaggerPath);
-    let converted = Converter(swaggerFile);
-    console.log('after convert', converted);
-    return JSON.stringify(converted);
+    return new Promise(function(resolve, reject) {
+        request(putOptions, function (error, response, body) {
+            if (error) {
+                reject(error);
+            } else {
+                console.log('updated collection', body);
+                resolve(body);
+            }
+        });
+    })
 }
 
 
 // ###############################################
-// call functions to handle conversion and update collection
+// define main function
+async function converter (owner, repo, filepathAndName, collection_uid) {
 
-let collection_uid = "1559979-2de5594b-7153-4270-b280-451705f346f3";
-let pathToSwaggerFile = './data/swagger.json';
-// let pathToSwaggerFile = './data/petstore-expanded.json';
+    let result = await getSwaggerFile(owner, repo, filepathAndName);
+    console.log("Retrieved GitHub swagger file");
 
-// retrieves postman collection based on uid
-// returns postman collection
-let originalPostmanCollection = getPostmanCollection(collection_uid); 
+    let updatedPostmanCollection = await convertCollection(result);
+    console.log("Converted Swagger to Postman");
 
-// swagger json converts to postman collection
-// returns converted postman collection
-let newPostmanCollection = convertCollection(pathToSwaggerFile);
-
-if (newPostmanCollection != originalPostmanCollection) {
-    // update postman collection
-    updatePostmanCollection(newPostmanCollection, collection_uid)
+    let response = await updatePostmanCollection(updatedPostmanCollection, collection_uid);
+    console.log('Updating Postman Collection', response);
 }
+
+// define required variables
+let collection_uid = "1559979-2de5594b-7153-4270-b280-451705f346f3";
+let owner = "loopDelicious";
+let repo = "swagger2-postman2";
+let filepathAndName = "data/swagger.json";
+
+// call main function
+converter(owner, repo, filepathAndName, collection_uid);
