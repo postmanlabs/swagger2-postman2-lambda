@@ -5,7 +5,7 @@ The file called `script.js` contains functions to handle the conversion from Swa
 
 Then from your project's root folder, run the following terminal command to execute the script:
 
-    `$ node script.js`
+    $ node script.js
 
 You can add additional logic to execute either before or after the conversion in `script.js`. Additionally, you can cusotmize the conversion by updating `./lib/convert.js` or `./lib/helpers.js`.
 
