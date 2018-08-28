@@ -21,7 +21,7 @@ SWD=$PWD;
 PACK_DIR=".tmp/pack";
 
 # base paths
-LAMBDA_BASE_DIR="lambdas";
+LAMBDA_BASE_DIR=".";
 OUT_BASE_DIR="$SWD/out";
 
 # function to be called on exit
