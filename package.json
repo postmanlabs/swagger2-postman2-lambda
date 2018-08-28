@@ -7,14 +7,15 @@
     "test": "scripts/test.sh",
     "test-lint": "scripts/test-lint.sh",
     "test-unit": "scripts/test-unit.sh",
-    "zip": "zip function.zip package.json ./lib/convert.js ./lib/helpers.js scriptForLambda.js indexForLambda.js node_modules"
+    "archive": "scripts/archive/archive.sh",
+    "zip": "zip function.zip package.json ./lib/convert.js ./lib/helpers.js scriptForLambda.js index.js node_modules/"
   },
   "dependencies": {
     "js-yaml": "3.10.0",
     "json-schema-faker": "0.4.7",
     "lodash": "4.17.5",
     "node-uuid": "^1.4.3",
-    "postman-collection": "^3.0.7"
+    "postman-collection": "^3.2.0"
   },
   "repository": {
     "type": "git",
