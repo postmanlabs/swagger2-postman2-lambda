@@ -7,8 +7,7 @@
     "test": "scripts/test.sh",
     "test-lint": "scripts/test-lint.sh",
     "test-unit": "scripts/test-unit.sh",
-    "archive": "scripts/archive/archive.sh",
-    "zip": "zip function.zip package.json ./lib/convert.js ./lib/helpers.js scriptForLambda.js index.js node_modules/"
+    "zip": "zip -r function.zip package.json ./lib/convert.js ./lib/helpers.js scriptForLambda.js index.js node_modules/"
   },
   "dependencies": {
     "js-yaml": "3.10.0",
