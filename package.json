@@ -10,7 +10,7 @@
     "zip": "zip -r function.zip package.json ./lib/convert.js ./lib/helpers.js scriptForLambda.js index.js node_modules/"
   },
   "dependencies": {
-    "js-yaml": "3.10.0",
+    "js-yaml": "3.13.1",
     "json-schema-faker": "0.4.7",
     "lodash": "4.17.5",
     "node-uuid": "^1.4.3",
