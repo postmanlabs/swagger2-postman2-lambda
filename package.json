@@ -7,7 +7,9 @@
     "test": "scripts/test.sh",
     "test-lint": "scripts/test-lint.sh",
     "test-unit": "scripts/test-unit.sh",
-    "zip": "zip -r function.zip package.json ./lib/convert.js ./lib/helpers.js scriptForLambda.js index.js node_modules/"
+    "zip": "zip -r function.zip package.json ./lib/convert.js ./lib/helpers.js scriptForLambda.js index.js node_modules/",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "js-yaml": "3.10.0",
@@ -15,7 +17,8 @@
     "lodash": "4.17.5",
     "node-uuid": "^1.4.3",
     "postman-collection": "^3.2.0",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "snyk": "^1.230.5"
   },
   "repository": {
     "type": "git",
@@ -46,5 +49,6 @@
     "name": "Swagger 2.0 to Postman",
     "source_format": "SWAGGER2.0",
     "source_format_name": "Swagger 2.0"
-  }
+  },
+  "snyk": true
 }
